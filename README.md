@@ -47,7 +47,6 @@ location ~ \.php$ {
 sudo systemctl restart nginx
 ```
 
-
 ### Let's Encrypt zertifikat einrichten (optional)
 
 #### Default-Config von Nginx öffnen
@@ -73,4 +72,10 @@ sudo apt install certbot python3-certbot-nginx
 #### Zertifikat für Domain ausstellen (www.servername.de anpassen!)
 ```
 sudo certbot --nginx -d www.servername.de
+```
+
+### Composer
+#### Installation
+```
+sudo apt install unzip
 ```
