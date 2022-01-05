@@ -143,3 +143,10 @@ Inhalt löschen
 ```
 rm *.*
 ```
+
+[index.html](index.html) und [convert.php](convert.php) in /var/www/html kopieren oder das Repo in dieses Verzeichnis klonen.
+
+### Test
+Das Script kann auf zwei wegen getestet werden. Entweder per HTML-Formular, indem die Server-URL über den Browser aufgerufen wird, oder von einem anderen Server aus über das Testscript [testscript.php](testscript.php).
+
+Bei Verwendung des Testscripts müssen die Zeilen 3, 4 und 5 entsprechend angepasst werden.
