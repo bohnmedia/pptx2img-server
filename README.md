@@ -69,7 +69,7 @@ Default-Config von Nginx öffnen
 sudo nano /etc/nginx/sites-available/default
 ```
 
-Index ergänzen
+index.php ergänzen
 
 ```
 index index.html index.htm index.nginx-debian.html;
@@ -122,6 +122,37 @@ Zertifikat für Domain ausstellen (www.servername.de anpassen!)
 
 ```
 sudo certbot --nginx -d www.servername.de
+```
+
+### Schnittstelle vor Fremdzugriff schützen (optional)
+
+apache2-utils zur Erstellung der htpasswd Datei installieren
+
+```
+sudo apt-get install apache2-utils
+```
+
+htpasswd-Datei mit Benutzername und Passwort generieren (benutzername anpassen!)
+
+```
+sudo htpasswd -c /etc/apache2/.htpasswd benutzername
+```
+
+"location ~ \.php$" um auth_basic und auth_basic_user_file ergänzen
+
+```
+location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+    fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+    auth_basic "pptx2img";
+    auth_basic_user_file /etc/apache2/.htpasswd;
+}
+```
+
+Speichern, schließen und Nginx neu starten
+
+```
+sudo systemctl restart nginx
 ```
 
 ### LibreOffice
