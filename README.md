@@ -31,6 +31,12 @@ Speichern, schließen und Nginx neu starten
 sudo systemctl restart nginx
 ```
 
+www-data das Schreiben in /var/www/html erlauben
+
+```
+chown www-data:www-data /var/www/html
+```
+
 ### PHP
 
 Installation
