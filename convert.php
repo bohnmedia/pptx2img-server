@@ -27,7 +27,7 @@
     $files = glob($tmpDir . '/*');
 
     // Convert pdf to jpeg
-    $outputFile = sprintf('%s/output.png', $tmpDir);
+    $outputFile = sprintf('%s/output', $tmpDir);
     $image = new Imagick();
     $image->setResolution($resolution, $resolution);
     $image->readImage($files[0]);
