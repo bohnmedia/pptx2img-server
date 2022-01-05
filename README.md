@@ -65,12 +65,12 @@ server_name www.servername.de;
 sudo systemctl restart nginx
 ```
 
-### Certbot für Nginx installieren
+#### Certbot für Nginx installieren
 ```
 sudo apt install certbot python3-certbot-nginx
 ```
 
-### Zertifikat für Domain ausstellen (www.servername.de anpassen!)
+#### Zertifikat für Domain ausstellen (www.servername.de anpassen!)
 ```
 sudo certbot --nginx -d www.servername.de
 ```
