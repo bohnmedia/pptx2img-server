@@ -31,6 +31,12 @@ Speichern, schließen und Nginx neu starten
 sudo systemctl restart nginx
 ```
 
+www-data das Schreiben in /var/www/html erlauben
+
+```
+chown www-data:www-data /var/www/html
+```
+
 ### PHP
 
 Installation
@@ -136,6 +142,12 @@ htpasswd-Datei mit Benutzername und Passwort generieren (benutzername anpassen!)
 
 ```
 sudo htpasswd -c /etc/apache2/.htpasswd benutzername
+```
+
+Default-Config von Nginx öffnen
+
+```
+sudo nano /etc/nginx/sites-available/default
 ```
 
 "location ~ \.php$" um auth_basic und auth_basic_user_file ergänzen
