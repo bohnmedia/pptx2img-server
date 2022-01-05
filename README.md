@@ -11,6 +11,21 @@ sudo apt update
 sudo apt install nginx
 ```
 
+Limits in nginx.conf erhöhen
+```
+sudo nano /etc/nginx/nginx.conf
+
+# Folgende Werte in http-Block nach "Basic Settings" ergänzen
+client_header_timeout  5m;
+client_body_timeout    5m;
+send_timeout           5m;
+```
+
+Speichern, schließen und Nginx neu starten
+```
+sudo systemctl restart nginx
+```
+
 ### PHP
 Installation
 ```
@@ -20,6 +35,23 @@ sudo add-apt-repository ppa:ondrej/php
 
 # PHP 8.1 installieren
 sudo apt install php8.1-fpm
+```
+
+Uploadlimit und Laufzeit erhöhern
+```
+# php.ini öffnen
+sudo nano /etc/php/8.1/fpm/php.ini
+
+# Folgende Werte anpassen
+upload_max_filesize = 64M
+post_max_size = 64M
+max_execution_time = 300
+max_input_time = 300
+```
+
+Speichern, schließen und PHP neu starten
+```
+sudo systemctl restart php8.1-fpm
 ```
 
 Default-Config von Nginx öffnen
