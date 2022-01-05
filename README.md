@@ -16,9 +16,8 @@ Limits in nginx.conf erhöhen
 sudo nano /etc/nginx/nginx.conf
 
 # Folgende Werte in http-Block nach "Basic Settings" ergänzen
-client_header_timeout  5m;
-client_body_timeout    5m;
-send_timeout           5m;
+client_max_body_size 64M;
+fastcgi_read_timeout 300;
 ```
 
 Speichern, schließen und Nginx neu starten
@@ -128,6 +127,11 @@ sudo nano /etc/ImageMagick-6/policy.xml
 # in
 <policy domain="coder" rights="read" pattern="PDF" />
 ````
+
+Speichern, schließen und PHP neu starten
+```
+sudo systemctl restart php8.1-fpm
+```
 
 ### PHP-Script
 In Web-Verzeichnis wechseln
