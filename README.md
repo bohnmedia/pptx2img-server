@@ -47,7 +47,7 @@ location ~ \.php$ {
 sudo systemctl restart nginx
 ```
 
-### Let's Encrypt zertifikat einrichten (optional)
+### Let's Encrypt Zertifikat (optional)
 
 #### Default-Config von Nginx öffnen
 ```
