@@ -10,6 +10,10 @@
 
 	// Config
 	$inputFile = $_FILES["pptx"]["tmp_name"];
+    $resolution = isset($_POST["resolution"]) ? $_POST["resolution"] : 150;
+    $format = isset($_POST["format"]) ? $_POST["format"] : "jpeg";
+    $quality = isset($_POST["quality"]) ? (int)$_POST["quality"] : 80;
+    if ($format === "jpg") $format = "jpeg";
 
 	// Create unique tmp directory for file output
 	$tmpDir = sprintf('%s/pptx2img-%s', sys_get_temp_dir(), md5(mt_rand()));
@@ -22,14 +26,16 @@
 	// Get filelist of output directory
 	$files = glob($tmpDir . '/*');
 	
-	// Convert pdf to png
+	// Convert pdf to jpeg
 	$outputFile = sprintf('%s/output.png', $tmpDir);
 	$image = new Imagick();
-	$image->setResolution(150, 150);
+	$image->setResolution($resolution, $resolution);
 	$image->readImage($files[0]);
-	$image->setImageFormat('jpeg');
-	$image->setImageCompression(Imagick::COMPRESSION_JPEG);    
-	$image->setImageCompressionQuality(100);    
+	$image->setImageFormat($format);
+    if ($format === "jpeg") {
+        $image->setImageCompression(Imagick::COMPRESSION_JPEG);
+	    $image->setImageCompressionQuality($quality);
+    }
 	$image->writeImage($outputFile);
 	$image->clear(); 
 	$image->destroy();

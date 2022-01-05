@@ -1,17 +1,22 @@
 # pptx2img-server
+
 Dieses Dokument beschreibt, wie ein Ubuntu-Server so eingerichtet wird, dass dieser per HTTP-Request PPTX2-Dateien in JPEG oder PNG konvertiert.
 
 ## Ubuntu 20.04 LTS
+
 Im folgenden wird die Einrichtung innerhalb einer frischen Ubuntu 20.04 Instanz beschrieben.
 
 ### Nginx
+
 Installation
+
 ```
 sudo apt update
 sudo apt install nginx
 ```
 
 Limits in nginx.conf erhöhen
+
 ```
 sudo nano /etc/nginx/nginx.conf
 
@@ -21,12 +26,15 @@ fastcgi_read_timeout 300;
 ```
 
 Speichern, schließen und Nginx neu starten
+
 ```
 sudo systemctl restart nginx
 ```
 
 ### PHP
+
 Installation
+
 ```
 # Repository von Ondřej Surý hinzufügen
 sudo apt install software-properties-common
@@ -37,6 +45,7 @@ sudo apt install php8.1-fpm
 ```
 
 Uploadlimit und Laufzeit erhöhern
+
 ```
 # php.ini öffnen
 sudo nano /etc/php/8.1/fpm/php.ini
@@ -49,23 +58,27 @@ max_input_time = 300
 ```
 
 Speichern, schließen und PHP neu starten
+
 ```
 sudo systemctl restart php8.1-fpm
 ```
 
 Default-Config von Nginx öffnen
+
 ```
 sudo nano /etc/nginx/sites-available/default
 ```
 
 Index ergänzen
+
 ```
 index index.html index.htm index.nginx-debian.html;
-# wird zu 
+# wird zu
 index index.php index.html index.htm index.nginx-debian.html;
 ```
 
 Location mit PHP-Endung im server-Block hinzufügen
+
 ```
 location ~ \.php$ {
    include snippets/fastcgi-php.conf;
@@ -74,6 +87,7 @@ location ~ \.php$ {
 ```
 
 Speichern, schließen und Nginx neu starten
+
 ```
 sudo systemctl restart nginx
 ```
@@ -81,43 +95,53 @@ sudo systemctl restart nginx
 ### Let's Encrypt Zertifikat (optional)
 
 Default-Config von Nginx öffnen
+
 ```
 sudo nano /etc/nginx/sites-available/default
 ```
 
 server_name an Hostnamen angleichen, über den der Server erreichbar ist (www.servername.de anpassen!)
+
 ```
 server_name www.servername.de;
 ```
 
 Speichern, schließen und Nginx neu starten
+
 ```
 sudo systemctl restart nginx
 ```
 
 Certbot für Nginx installieren
+
 ```
 sudo apt install certbot python3-certbot-nginx
 ```
 
 Zertifikat für Domain ausstellen (www.servername.de anpassen!)
+
 ```
 sudo certbot --nginx -d www.servername.de
 ```
 
 ### LibreOffice
+
 Installation inklusive Impress
+
 ```
 sudo apt-get install libreoffice libreoffice-impress
 ```
 
 ### ImageMagick für PHP
+
 Installation
+
 ```
 sudo apt-get install php-imagick
 ```
 
 Lesen von PDF-Dateien erlauben
+
 ```
 # policy.xml öffnen
 sudo nano /etc/ImageMagick-6/policy.xml
@@ -126,20 +150,24 @@ sudo nano /etc/ImageMagick-6/policy.xml
 <policy domain="coder" rights="none" pattern="PDF" />
 # in
 <policy domain="coder" rights="read" pattern="PDF" />
-````
+```
 
 Speichern, schließen und PHP neu starten
+
 ```
 sudo systemctl restart php8.1-fpm
 ```
 
 ### PHP-Script
+
 In Web-Verzeichnis wechseln
+
 ```
 cd /var/www/html
 ```
 
 Inhalt löschen
+
 ```
 rm *.*
 ```
@@ -147,6 +175,7 @@ rm *.*
 [index.html](index.html) und [convert.php](convert.php) in /var/www/html kopieren oder das Repo in dieses Verzeichnis klonen.
 
 ### Test
+
 Das Script kann auf zwei wegen getestet werden. Entweder per HTML-Formular, indem die Server-URL über den Browser aufgerufen wird, oder von einem anderen Server aus über das Testscript [testscript.php](testscript.php).
 
-Bei Verwendung des Testscripts müssen die Zeilen 3, 4 und 5 entsprechend angepasst werden.
+Bei Verwendung des Testscripts müssen die Zeilen 3 bis 8 entsprechend angepasst werden.
