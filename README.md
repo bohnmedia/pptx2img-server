@@ -15,6 +15,26 @@ sudo apt update
 sudo apt install nginx
 ```
 
+Default-Config von Nginx öffnen
+
+```
+sudo nano /etc/nginx/sites-available/default
+```
+
+Ausgabe von Ordnern und Dateien, die mit einem Punkt beginnen unterbinden
+
+```
+server {
+    ...
+    location ~ /\. {
+        deny all;
+    }
+    ...
+}
+```
+
+Speichern und schließen
+
 Limits in nginx.conf erhöhen
 
 ```
