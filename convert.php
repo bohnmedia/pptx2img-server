@@ -10,7 +10,6 @@
 
 	// Config
 	$inputFile = $_FILES["pptx"]["tmp_name"];
-	$outputFormat = 'pdf';
 
 	// Create unique tmp directory for file output
 	$tmpDir = sprintf('%s/pptx2img-%s', sys_get_temp_dir(), md5(mt_rand()));
