@@ -83,8 +83,7 @@ index index.html index.htm index.nginx-debian.html;
 index index.php index.html index.htm index.nginx-debian.html;
 ```
 
-Location mit PHP-Endung im server-Block hinzufügen
-Ordner und Dateien, die mit einem Punkt beginnen, blocken
+Location mit PHP-Endung im server-Block hinzufügen und Ordner/Dateien, die mit einem Punkt beginnen, blocken
 
 ```
 location ~ \.php$ {
