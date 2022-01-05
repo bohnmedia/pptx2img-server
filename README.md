@@ -15,26 +15,6 @@ sudo apt update
 sudo apt install nginx
 ```
 
-Default-Config von Nginx öffnen
-
-```
-sudo nano /etc/nginx/sites-available/default
-```
-
-Ausgabe von Ordnern und Dateien, die mit einem Punkt beginnen unterbinden
-
-```
-server {
-    ...
-    location ~ /\. {
-        deny all;
-    }
-    ...
-}
-```
-
-Speichern und schließen
-
 Limits in nginx.conf erhöhen
 
 ```
@@ -104,11 +84,16 @@ index index.php index.html index.htm index.nginx-debian.html;
 ```
 
 Location mit PHP-Endung im server-Block hinzufügen
+Ordner und Dateien, die mit einem Punkt beginnen, blocken
 
 ```
 location ~ \.php$ {
    include snippets/fastcgi-php.conf;
    fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+}
+
+location ~ /\. {
+    deny all;
 }
 ```
 
