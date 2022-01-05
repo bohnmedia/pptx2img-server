@@ -8,24 +8,108 @@
         text-align: center;
         font-family: arial;
       }
-      div {
-        margin: 20px 0;
+      form {
+        display: block;
+        max-width: 500px;
+        margin: 0 auto;
+        border: 1px solid #ccc;
+        background: #f0f0f0;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      form .column {
+        border: 1px solid #ccc;
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      form .w50 {
+        width: 50%;
+      }
+      select,
+      input {
+        margin: 3px 0;
+        padding: 5px;
+      }
+      input[type="file"] {
+        width: 100%;
+        margin-top: 15px;
+        box-sizing: border-box;
+        padding: 10px;
+        background: #fff;
+      }
+      button {
+        padding: 9px 15px;
+        background: #666;
+        color: #fff;
+        border: 0;
+        font-weight: bold;
       }
     </style>
   </head>
   <body>
     <h1>PPTX-Datei umwandeln</h1>
     <form action="./convert.php" enctype="multipart/form-data" method="POST">
-      <div>
-        <input
+      <div class="column">
+        <strong>Quelldatei (PPTX-Format)</strong><br /><input
           name="pptx"
           type="file"
           accept="application/vnd.openxmlformats-officedocument.presentationml.presentation"
+          required
         />
       </div>
-      <div>
-        <button type="submit">In JPG umwandeln</button>
+      <div class="column w50">
+        <label
+          ><strong>Format</strong><br /><select name="format" id="format">
+            <option value="jpeg">JPEG</option>
+            <option value="png">PNG</option>
+          </select></label
+        >
+      </div>
+      <div class="column w50">
+        <label
+          ><strong>DPI</strong><br /><input
+            type="text"
+            name="dpi"
+            value="150"
+            style="width: 50px; text-align: center"
+        /></label>
+      </div>
+      <div id="quality" class="column">
+        <label
+          ><strong>Qualität</strong><br /><input
+            type="range"
+            min="1"
+            max="100"
+            value="80"
+            name="quality"
+            style="width: 300px"
+            id="qualitySlider" /><br /><span id="qualityText"></span
+        ></label>
+      </div>
+      <div class="column">
+        <button type="submit">umwandeln</button>
       </div>
     </form>
+    <script>
+      var qualitySlider = document.getElementById("qualitySlider");
+      var qualityText = document.getElementById("qualityText");
+      var format = document.getElementById("format");
+      var quality = document.getElementById("quality");
+      var updateQualityText = function () {
+        window.setTimeout(function () {
+          qualityText.innerHTML = qualitySlider.value;
+        }, 1);
+      };
+      var updateFormat = function () {
+        window.setTimeout(function () {
+          quality.style.display = format.value === "jpeg" ? "block" : "none";
+        }, 1);
+      };
+      updateQualityText();
+      updateFormat();
+      qualitySlider.addEventListener("input", updateQualityText);
+      format.addEventListener("change", updateFormat);
+    </script>
   </body>
 </html>
