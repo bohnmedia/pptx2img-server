@@ -16,9 +16,15 @@
     if ($fileExtension === "jpeg") $fileExtension = "jpg";
     $quality = isset($_POST["quality"]) ? (int)$_POST["quality"] : $quality;
     $tmpDir = sprintf('%s/pptx2img-%s', sys_get_temp_dir(), md5(mt_rand()));
+	$outputDir = sprintf('%s/output', __DIR__);
     $outputFile = sprintf('output/%s.%s', md5(time(). rand()), $fileExtension);
     $absOutputFile = sprintf('%s/%s', __DIR__, $outputFile);
     $outputFileLink = sprintf('%s://%s/%s', $protocol, $_SERVER["SERVER_NAME"], $outputFile);
+	
+	// Create output dir
+	if (!is_dir($outputDir)) {
+		mkdir($outputDir);
+	}
 
     // Delete old files from output directory
     $files = glob(__DIR__ . '/output/*');
