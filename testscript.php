@@ -5,7 +5,7 @@
 
     // Input and output file
     $inputFile = "/var/www/html/test/input.pptx";
-    $outputFile = "/var/www/html/test/output.jpg";
+    $outputFile = "/var/www/html/test/output.json";
 
     // PostFields
     $postFields = ["pptx" => new CURLFile($inputFile)];
