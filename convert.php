@@ -85,6 +85,9 @@
         $image->setImageCompression(Imagick::COMPRESSION_JPEG);
         $image->setImageCompressionQuality($quality);
     }
+	if ($format === "png") {
+		$image->setImageCompression(Imagick::COMPRESSION_ZIP);
+	}
     $image->writeImage($absOutputFile);
     $image->clear(); 
     $image->destroy();
