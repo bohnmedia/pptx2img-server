@@ -26,8 +26,8 @@
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $imgData = curl_exec($ch);
+    $jsonData = curl_exec($ch);
     curl_close($ch);
 
     // Write response to file
-    file_put_contents($outputFile, $imgData);
+    file_put_contents($outputFile, $jsonData);
